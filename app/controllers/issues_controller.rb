@@ -16,12 +16,31 @@ class IssuesController < ApplicationController
 
   # GET: /issues/new
   get "/issues/new" do
-    erb :"/issues/new.html"
+    if Helpers.is_logged_in?(session)
+      erb :"/issues/new.html"
+    else
+      redirect "/supports/login"
+    end
   end
 
   # POST: /issues
   post "/issues" do
-    redirect "/issues"
+    if Helpers.is_logged_in?(session)
+      binding.pry
+      if Issue.new(params).valid?  
+        binding.pry
+        @issue = Helpers.current_user(session).issues.build(params)
+        if @issue.save
+          redirect "/issues/#{@issue.id}"
+        else
+          redirect "/issues/new"
+        end
+      else
+        redirect "/issues/new"
+      end
+    else
+      redirect "/supports/login"
+    end
   end
 
   # GET: /issues/5
