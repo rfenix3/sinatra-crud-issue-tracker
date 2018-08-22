@@ -20,20 +20,29 @@ class SupportsController < ApplicationController
     erb :"/supports/login.html"
   end
 
+  get "/supports/logout" do
+    if Helpers.is_logged_in?(session)
+      session.destroy
+      binding.pry
+      redirect "/supports/login"
+    else
+      redirect "/"
+    end
+  end
+
 
   # POST: /supports
   post "/supports" do
     if Support.new(params).valid?  
       @support = Support.new(params)
       @support.save
-      binding.pry
+      #binding.pry
       session[:user_id] = @support.id
-      binding.pry
+      #binding.pry
       redirect "/issues"
     else
       redirect "/supports/new"
     end
-    #redirect "/issues"
   end
 
   # GET: /supports/5
