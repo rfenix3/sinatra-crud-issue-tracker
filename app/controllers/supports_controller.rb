@@ -7,12 +7,11 @@ class SupportsController < ApplicationController
 
   # GET: /supports/new
   get "/supports/new" do
-      erb :"/supports/new.html"
-    # if !Helpers.is_logged_in?(session)
-    #     erb :'/supports/create_account'
-    # else
-    #     redirect '/issues'
-    # end
+    if Helpers.is_logged_in?(session)
+        redirect '/issues'
+    else
+        erb :"/supports/new.html"
+    end
   end
 
  # LOGIN: /supports/login
@@ -23,7 +22,7 @@ class SupportsController < ApplicationController
   get "/supports/logout" do
     if Helpers.is_logged_in?(session)
       session.destroy
-      binding.pry
+      #binding.pry
       redirect "/supports/login"
     else
       redirect "/"
@@ -42,6 +41,17 @@ class SupportsController < ApplicationController
       redirect "/issues"
     else
       redirect "/supports/new"
+    end
+  end
+
+  post '/supports/login' do
+    support = Support.find_by(username: params[:username])
+    #binding.pry
+    if support && support.authenticate(params[:password])
+      session[:user_id] = support.id
+      redirect "/issues"
+    else
+      redirect "/supports/login"
     end
   end
 
