@@ -1,1 +1,23 @@
 <h1>This is the Issues Controller Model's index page.</h1>
+
+<p> Welcome, <%= @support.username %></p>
+<br>
+
+<button> <a href="/issues/new">Create New Issue </a></button>
+
+<% binding.pry%>
+<button> <a href="/supports/<%=@support.id%>">My Issues </a></button>
+
+<button> <a href="/logout"> Log out </a></button>
+
+<h2> All Issues </h2>
+
+<div>
+  <% if @issues.empty? %>
+      <p>There are no issues at this time.</p>
+  <% else %>
+    <% @issues.each do |issue| %>
+        <p><%= issue.title %></p>
+      <% end %>
+  <% end %>
+</div>

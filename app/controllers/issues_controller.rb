@@ -2,7 +2,16 @@ class IssuesController < ApplicationController
 
   # GET: /issues
   get "/issues" do
-    erb :"/issues/index.html"
+    binding.pry 
+    #check value of session if user_id is retained.
+    if Helpers.is_logged_in?(session)
+      @support = Helpers.current_user(session)
+      @issues = Issue.all
+      binding.pry
+      erb :"/issues/index.html"
+    else
+      redirect "/supports/login"
+    end
   end
 
   # GET: /issues/new
