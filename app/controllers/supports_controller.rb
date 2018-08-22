@@ -7,8 +7,19 @@ class SupportsController < ApplicationController
 
   # GET: /supports/new
   get "/supports/new" do
-    erb :"/supports/new.html"
+      erb :"/supports/new.html"
+    # if !Helpers.is_logged_in?(session)
+    #     erb :'/supports/create_account'
+    # else
+    #     redirect '/issues'
+    # end
   end
+
+ # LOGIN: /supports/login
+  get "/supports/login" do
+    erb :"/supports/login.html"
+  end
+
 
   # POST: /supports
   post "/supports" do
@@ -34,4 +45,13 @@ class SupportsController < ApplicationController
   delete "/supports/:id/delete" do
     redirect "/supports"
   end
+
+ 
+  
+  # get '/users/:slug' do
+  #   @user = User.find_by_slug(params[:slug])
+  #   erb :'users/show'
+  # end
+
+
 end
