@@ -20,8 +20,10 @@ class SupportsController < ApplicationController
   end
 
   get "/supports/logout" do
+    binding.pry
     if Helpers.is_logged_in?(session)
       session.destroy
+      binding.pry
       redirect "/supports/login"
     else
       redirect "/"
@@ -51,12 +53,15 @@ class SupportsController < ApplicationController
     end
   end
 
- 
-
   get "/supports/:slug" do
-    @support = Support.find_by_slug(params[:slug])
-    @issues = @support.issues
-    erb :"/supports/owned_issues.html"
+    if Helpers.is_logged_in?(session)
+      @support = Support.find_by_slug(params[:slug])
+      @issues = @support.issues
+      erb :"/supports/owned_issues.html"
+    else
+      redirect "/"
+    end
+
   end
 
   # Future enhancement. Only admins should be able to see all support resources' record.
@@ -83,11 +88,10 @@ class SupportsController < ApplicationController
   #   redirect "/supports"
   # end
 
- 
   
   # get '/users/:slug' do
-  #   @user = User.find_by_slug(params[:slug])
-  #   erb :'users/show'
+  #   @support = Support.find_by_slug(params[:slug])
+  #   erb :'supports/show'
   # end
 
 
