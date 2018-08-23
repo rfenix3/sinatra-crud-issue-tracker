@@ -26,12 +26,13 @@ class IssuesController < ApplicationController
   # POST: /issues
   post "/issues" do
     if Helpers.is_logged_in?(session)
-      #binding.pry
+      binding.pry
       if Issue.new(params).valid?  
-        #binding.pry
-        @issue = Helpers.current_user(session).issues.build(params)
+        binding.pry
+        @support = Helpers.current_user(session)
+        @issue = @support.issues.build(params)
         if @issue.save
-          redirect "/issues/#{@issue.id}"
+          redirect "/supports/#{@support.slug}"
         else
           redirect "/issues/new"
         end
@@ -48,7 +49,7 @@ class IssuesController < ApplicationController
     if Helpers.is_logged_in?(session)
       @support = Helpers.current_user(session)
       @issue = Issue.find_by(id: params[:id])
-      binding.pry
+      #binding.pry
       erb :"/issues/show.html"
     else
       redirect "/supports/login"
