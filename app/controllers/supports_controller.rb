@@ -60,9 +60,10 @@ class SupportsController < ApplicationController
   get "/supports/:slug" do
     @support = Support.find_by_slug(params[:slug])
     #binding.pry
-    erb :"/supports/show.html"
+    erb :"/supports/owned_issues.html"
   end
 
+  # Future enhancement. Only admins should be able to see all support resources' record.
    # GET: /supports/5
   # get "/supports/:id" do
   #   erb :"/supports/show.html"

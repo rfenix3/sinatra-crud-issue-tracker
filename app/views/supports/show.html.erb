@@ -1,44 +1,5 @@
-<h2> Hello, <%= @support.username %></h2>
+# This form is not accessible from the program.
+# This will be a form showing an individual Support resource accounts.
+# Future enhancement for an Admin Module. Only admins should be able to update support resources.
 
-<button><a href="/issues">Back to main page</a> </button>
-
-<% @support.issues.each do |issue| %>
-  <div>
-    <p><%= issue.title %></p>
-  </div>
-<% end %>
-
-<h2> Your Issues </h2>
-
-<% if @support.issues.empty? %>
-  <p>There are no issues at this time.</p>
-<% else %>
-    <table class="table table-bordered table-responsive table-sm table-hover">
-      <thead>
-        <tr>
-          <th>ID</th>
-          <th>Status</th>
-          <th>Owner</th>
-          <th>Created</th>
-          <th>Completion</th>
-          <th>Title</th>
-          <th></th>
-        </tr>
-      </thead>
-      <tbody>
-        <%binding.pry%>
-        <% @support.issues.order('id DESC').each do |issue| %>
-          <tr>
-            <td><%= issue.id %></td>
-            <td><%= issue.status %></td>
-            <td><%= issue.owner %></td>
-            <td><%= issue.created %></td>
-            <td><%= issue.completion %></td>
-            <td><%= issue.title %></td>
-            <td></td>
-          </tr>
-        <% end %>
-      </tbody>
-    </table>
-  <% end %>
-
+<h1>This is the Support resources show page.</h1>
