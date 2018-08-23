@@ -58,7 +58,16 @@ class IssuesController < ApplicationController
 
   # GET: /issues/5/edit
   get "/issues/:id/edit" do
-    erb :"/issues/edit.html"
+    if Helpers.is_logged_in?(session)
+      @issue = Issue.find_by_id(params[:id])
+      if @issue && @issue.support == Helpers.current_user(session)
+        erb :"/issues/edit.html"
+      else
+        redirect '/issues'
+      end
+    else
+      redirect '/supports'
+    end
   end
 
   # PATCH: /issues/5

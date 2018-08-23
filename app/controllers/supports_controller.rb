@@ -59,6 +59,7 @@ class SupportsController < ApplicationController
 
   get "/supports/:slug" do
     @support = Support.find_by_slug(params[:slug])
+    @issues = @support.issues
     #binding.pry
     erb :"/supports/owned_issues.html"
   end

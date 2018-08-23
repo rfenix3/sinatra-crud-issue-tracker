@@ -1,11 +1,10 @@
 <h2> Welcome, <%= @support.username %></h2>
 
-<button> <a href="issues/new">Create New Issue </a></button>
+<button> <a href="issues/new">Create New Issue</a></button>
 
-<% #binding.pry%>
-<button> <a href="supports/<%=@support.slug%>">My Issues </a></button>
+<button> <a href="supports/<%=@support.slug%>">My Issues</a></button>
 
-<button> <a href="supports/logout"> Log out </a></button>
+<button> <a href="supports/logout">Log out</a></button>
 
 <h2> All Issues </h2>
 
@@ -27,7 +26,7 @@
       <tbody>
         <% @issues.each do |issue| %>
           <tr>
-            <td><%= issue.id %></td>
+            <td><a href="issues/<%=issue.id%>/edit"><%= issue.id %></a></td>
             <td><%= issue.status %></td>
             <td><%= issue.owner %></td>
             <td><%= issue.created %></td>
