@@ -22,7 +22,6 @@ class SupportsController < ApplicationController
   get "/supports/logout" do
     if Helpers.is_logged_in?(session)
       session.destroy
-      #binding.pry
       redirect "/supports/login"
     else
       redirect "/"
@@ -35,9 +34,7 @@ class SupportsController < ApplicationController
     if Support.new(params).valid?  
       @support = Support.new(params)
       @support.save
-      #binding.pry
       session[:user_id] = @support.id
-      #binding.pry
       redirect "/issues"
     else
       redirect "/supports/new"
@@ -46,7 +43,6 @@ class SupportsController < ApplicationController
 
   post '/supports/login' do
     support = Support.find_by(username: params[:username])
-    #binding.pry
     if support && support.authenticate(params[:password])
       session[:user_id] = support.id
       redirect "/issues"
@@ -60,7 +56,6 @@ class SupportsController < ApplicationController
   get "/supports/:slug" do
     @support = Support.find_by_slug(params[:slug])
     @issues = @support.issues
-    #binding.pry
     erb :"/supports/owned_issues.html"
   end
 
