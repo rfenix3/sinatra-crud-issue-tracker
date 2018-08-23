@@ -55,25 +55,36 @@ class SupportsController < ApplicationController
     end
   end
 
-  # GET: /supports/5
-  get "/supports/:id" do
+ 
+
+  get "/supports/:slug" do
+    @support = Support.find_by_slug(params[:slug])
+    #binding.pry
     erb :"/supports/show.html"
   end
 
+   # GET: /supports/5
+  # get "/supports/:id" do
+  #   erb :"/supports/show.html"
+  # end
+
+  # Future enhancement. Only admins should be able to update support resources' record.
   # GET: /supports/5/edit
-  get "/supports/:id/edit" do
-    erb :"/supports/edit.html"
-  end
+  # get "/supports/:id/edit" do
+  #   erb :"/supports/edit.html"
+  # end
 
+  # Future enhancement. Only admins should be able to update support resources' record.
   # PATCH: /supports/5
-  patch "/supports/:id" do
-    redirect "/supports/:id"
-  end
+  # patch "/supports/:id" do
+  #   redirect "/supports/:id"
+  # end
 
+  # Future enhancement. Only admins should be able to delete support resources' record.
   # DELETE: /supports/5/delete
-  delete "/supports/:id/delete" do
-    redirect "/supports"
-  end
+  # delete "/supports/:id/delete" do
+  #   redirect "/supports"
+  # end
 
  
   
