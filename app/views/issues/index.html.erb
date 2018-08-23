@@ -12,33 +12,30 @@
 <% if @issues.empty? %>
   <p>There are no issues at this time.</p>
 <% else %>
-    <div class="container">
-      <table class="table table-bordered">
-        <thead>
+    <table class="table table-bordered table-responsive table-sm table-hover">
+      <thead>
+        <tr>
+          <th>ID</th>
+          <th>Status</th>
+          <th>Owner</th>
+          <th>Created</th>
+          <th>Completion</th>
+          <th>Title</th>
+          <th></th>
+        </tr>
+      </thead>
+      <tbody>
+        <% @issues.each do |issue| %>
           <tr>
-            <th>ID</th>
-            <th>Status</th>
-            <th>Owner</th>
-            <th>Created</th>
-            <th>Completion</th>
-            <th>Title</th>
-            <th></th>
+            <td><%= issue.id %></td>
+            <td><%= issue.status %></td>
+            <td><%= issue.owner %></td>
+            <td><%= issue.created %></td>
+            <td><%= issue.completion %></td>
+            <td><%= issue.title %></td>
+            <td></td>
           </tr>
-        </thead>
-        <tbody>
-          <% @issues.each do |issue| %>
-            <tr>
-              <td><%= issue.id %></td>
-              <td><%= issue.status %></td>
-              <td><%= issue.owner %></td>
-              <td><%= issue.created %></td>
-              <td><%= issue.completion %></td>
-              <td><%= issue.title %></td>
-              <td></td>
-            </tr>
-          <% end %>
-
-        </tbody>
-      </table>
-    </div>
+        <% end %>
+      </tbody>
+    </table>
   <% end %>
