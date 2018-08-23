@@ -1,2 +1,35 @@
-<h1>This is the show page for an individual instance of your model.</h1>
-<h2> Showing issues by Support Person </h2>
+<h2> Welcome, <%= @support.username %></h2>
+
+<button> <a href="issues/new">Create New Issue </a></button>
+
+<% #binding.pry%>
+<button> <a href="supports/<%=@support.id%>">My Issues </a></button>
+
+<button> <a href="supports/logout"> Log out </a></button>
+
+<h2> Issue Record Created </h2>
+
+    <table class="table table-bordered table-responsive table-sm table-hover">
+      <thead>
+        <tr>
+          <th>ID</th>
+          <th>Status</th>
+          <th>Owner</th>
+          <th>Created</th>
+          <th>Completion</th>
+          <th>Title</th>
+          <th></th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+        <td><%= @issue.id %></td>
+        <td><%= @issue.status %></td>
+        <td><%= @issue.owner %></td>
+        <td><%= @issue.created %></td>
+        <td><%= @issue.completion %></td>
+        <td><%= @issue.title %></td>
+        <td></td>
+        </tr>
+      </tbody>
+    </table>
