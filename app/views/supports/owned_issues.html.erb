@@ -1,12 +1,10 @@
-<h2> Hello, <%= @support.username %></h2>
+<h2><span> Hello, <%= @support.username %>   </span> <span style="color:blue;Text-align:center"> Below are your records <span></h2>
 
 <button> <a href="/issues/new">Create New Issue</a></button>
 
 <button> <a href="/issues">Back to main page</a></button>
 
-<button> <a href="/supports/logout">Log out</a></button>
-
-<h2> Your Issues </h2>
+<button> <a href="/supports/logout">Log out</a></button><br></br>
 
 <% if @issues.empty? %>
   <p>There are no issues at this time.</p>
@@ -32,7 +30,7 @@
             <td><%= issue.created %></td>
             <td><%= issue.completion %></td>
             <td><%= issue.title %></td>
-            <td></td>
+            <td><a href="/issues/<%=issue.id%>/delete">X</a></td>
           </tr>
         <% end %>
       </tbody>

@@ -1,12 +1,10 @@
-<h2> Welcome, <%= @support.username %></h2>
+<h2><span> Hello, <%= @support.username %>   </span> <span style="color:blue;Text-align:center"> All records <span></h2>
 
 <button> <a href="issues/new">Create New Issue</a></button>
 
 <button> <a href="supports/<%=@support.slug%>">My Issues</a></button>
 
-<button> <a href="supports/logout">Log out</a></button>
-
-<h2> All Issues </h2>
+<button> <a href="supports/logout">Log out</a></button><br></br>
 
 <% if @issues.empty? %>
   <p>There are no issues at this time.</p>
@@ -26,13 +24,18 @@
       <tbody>
         <% @issues.each do |issue| %>
           <tr>
-            <td><a href="issues/<%=issue.id%>/edit"><%= issue.id %></a></td>
+            <td><a href="issues/<%=issue.id%>/edit"><%= issue.id %></a>
             <td><%= issue.status %></td>
             <td><%= issue.owner %></td>
             <td><%= issue.created %></td>
             <td><%= issue.completion %></td>
             <td><%= issue.title %></td>
-            <td></td>
+            <% #binding.pry %>
+            <% if issue.support == Helpers.current_user(session) %>
+              <td><a href="/issues/<%=issue.id%>/delete">X</a></td>
+            <% else %>
+              <td></td>
+            <% end %>
           </tr>
         <% end %>
       </tbody>

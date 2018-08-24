@@ -1,0 +1,18 @@
+<h2><span> Hello, <%= @support.username %>   </span> <span style="color:red;Text-align:center"> Delete Record? <span></h2>
+
+<form method="post" action="/issues/<%=@issue.id%>">
+<input id="hidden" type="hidden" name="_method" value="DELETE">
+
+  <label for="title"> Title: </label>
+  <input id="title" type="text" name="title" value="<%= @issue.title %>" readonly></input><br></br>
+  <label for="status"> Status: </label>
+  <input id="status" type="text" name="status" value="<%= @issue.status %>" readonly></input><br></br>
+  <label for="owner"> Owner: </label>
+  <input id="owner" type="text" name="owner" value="<%= @issue.owner %>" readonly></input><br></br>
+  <label for="created"> Created: </label>
+  <input id="created" type="text" name="created" value="<%= @issue.created %>" readonly></input><br></br>  
+  <label for="completion"> Completion: </label>
+  <input id="completion" type="text" name="completion" value="<%= @issue.completion %>" readonly></input><br></br>  
+  
+  <input type="submit" value="Delete">
+</form>

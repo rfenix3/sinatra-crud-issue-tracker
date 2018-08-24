@@ -20,10 +20,8 @@ class SupportsController < ApplicationController
   end
 
   get "/supports/logout" do
-    binding.pry
     if Helpers.is_logged_in?(session)
       session.destroy
-      binding.pry
       redirect "/supports/login"
     else
       redirect "/"
@@ -43,7 +41,7 @@ class SupportsController < ApplicationController
     end
   end
 
-  post '/supports/login' do
+  post "/supports/login" do
     support = Support.find_by(username: params[:username])
     if support && support.authenticate(params[:password])
       session[:user_id] = support.id

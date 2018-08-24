@@ -14,6 +14,7 @@ class IssuesController < ApplicationController
   # GET: /issues/new
   get "/issues/new" do
     if Helpers.is_logged_in?(session)
+      @support = Helpers.current_user(session)
       erb :"/issues/new.html"
     else
       redirect "/supports/login"
@@ -55,12 +56,27 @@ class IssuesController < ApplicationController
     if Helpers.is_logged_in?(session)
       @issue = Issue.find_by_id(params[:id])
       if @issue && @issue.support == Helpers.current_user(session)
+        @support = @issue.support 
         erb :"/issues/edit.html"
       else
-        redirect '/issues'
+        redirect "/issues"
       end
     else
-      redirect '/supports'
+      redirect "/supports/login"
+    end
+  end
+
+  get "/issues/:id/delete" do
+    if Helpers.is_logged_in?(session)
+      @issue = Issue.find_by(id: params[:id])   
+      if @issue && @issue.support == Helpers.current_user(session)
+        @support = @issue.support 
+        erb :"/issues/delete.html"
+      else
+        redirect "/issues"
+      end
+    else
+      redirect "/supports/login"
     end
   end
 
@@ -89,11 +105,23 @@ class IssuesController < ApplicationController
     else
       redirect "/supports/login" #if there is no active session. 
     end
-
   end  # patch end
 
-  # DELETE: /issues/5/delete
-  delete "/issues/:id/delete" do
-    redirect "/issues"
+  # DELETE: /issues/5
+  delete "/issues/:id" do
+    if Helpers.is_logged_in?(session)
+      @issue = Issue.find_by(id: params[:id])
+      if @issue && @issue.support == Helpers.current_user(session)
+        # get the support's details before deleting the issue to return to support's issue list.
+        @support = @issue.support 
+        @issue.delete
+        binding.pry
+        redirect "/supports/#{@support.slug}" #redirects to show support's remaining issues.
+      end
+      redirect "/issues"
+    else
+      redirect "/supports/login"
+    end
   end
+
 end
