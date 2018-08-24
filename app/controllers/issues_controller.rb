@@ -28,7 +28,8 @@ class IssuesController < ApplicationController
         @support = Helpers.current_user(session)
         @issue = @support.issues.build(params)
         if @issue.save
-          redirect "/supports/#{@support.slug}"
+          #redirect "/supports/#{@support.slug}"
+          redirect "/issues/#{@issue.id}"
         else
           redirect "/issues/new"
         end
@@ -115,7 +116,7 @@ class IssuesController < ApplicationController
         # get the support's details before deleting the issue to return to support's issue list.
         @support = @issue.support 
         @issue.delete
-        binding.pry
+        #binding.pry
         redirect "/supports/#{@support.slug}" #redirects to show support's remaining issues.
       end
       redirect "/issues"

@@ -1,4 +1,4 @@
-h2><span> Hello, <%= @support.username %>   </span> <span style="color:blue;Text-align:center"> Edit Record<span></h2>
+<h2><span> Hello, <%= @support.username %>   </span> <span style="color:blue;Text-align:center"> Edit Record<span></h2>
 
 <form method="post" action="/issues/<%=@issue.id%>">
 <input id="hidden" type="hidden" name="_method" value="PATCH">
