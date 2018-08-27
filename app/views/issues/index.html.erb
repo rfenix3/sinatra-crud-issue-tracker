@@ -6,25 +6,31 @@
 
 <button> <a href="supports/logout">Log out</a></button><br></br>
 
+<span style="color:blue;Text-align:right">*Click ID number to edit, X to delete</span>
+
 <% if @issues.empty? %>
   <p>There are no issues at this time.</p>
 <% else %>
     <table class="table table-bordered table-responsive table-sm table-hover">
       <thead>
         <tr>
-          <th>ID</th>
+          <th style="color:blue">ID*</th>
           <th>Status</th>
           <th>Owner</th>
           <th>Created</th>
           <th>Completion</th>
           <th>Title</th>
-          <th></th>
+          <th style="color:blue">*</th>
         </tr>
       </thead>
       <tbody>
         <% @issues.each do |issue| %>
           <tr>
-            <td><a href="issues/<%=issue.id%>/edit"><%= issue.id %></a>
+            <% if issue.support == Helpers.current_user(session) %>
+              <td><a href="issues/<%=issue.id%>/edit"><%= issue.id %></a>
+            <% else %>
+              <td><%= issue.id %></td>
+            <% end %>         
             <td><%= issue.status %></td>
             <td><%= issue.owner %></td>
             <td><%= issue.created %></td>
