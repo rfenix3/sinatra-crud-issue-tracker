@@ -31,6 +31,9 @@ class SupportsController < ApplicationController
 
   # POST: /supports
   post "/supports" do
+    if Support.find_by(username: params[:username]) 
+      redirect "/supports/new"
+    end      
     if Support.new(params).valid?  
       @support = Support.new(params)
       @support.save
@@ -54,8 +57,13 @@ class SupportsController < ApplicationController
   get "/supports/:slug" do
     if Helpers.is_logged_in?(session)
       @support = Support.find_by_slug(params[:slug])
-      @issues = @support.issues
-      erb :"/supports/owned_issues.html"
+      if @support == Helpers.current_user(session)
+        @issues = @support.issues
+        erb :"/supports/owned_issues.html"
+      else
+        session.destroy
+        redirect "/supports/login"
+      end
     else
       redirect "/"
     end

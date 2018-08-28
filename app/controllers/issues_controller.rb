@@ -83,7 +83,7 @@ class IssuesController < ApplicationController
 
   # PATCH: /issues/5
   patch "/issues/:id" do
-    if Helpers.is_logged_in?(session)
+    if Helpers.is_logged_in?(session) # redirect_if_not_logged_in
       if params[:status] == "" || params[:title] == ""
         redirect "/issues/#{params[:id]}/edit"
       else
